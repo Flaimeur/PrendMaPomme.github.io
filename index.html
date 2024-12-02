@@ -52,7 +52,6 @@
       padding: 10px;
       font-size: 0.9rem;
       cursor: pointer;
-      display: none;
     }
     #mute-button:hover {
       background-color: darkred;
@@ -66,7 +65,7 @@
     <button class="button" id="play-pause-button" onclick="togglePlayPause()">Play</button>
   </div>
 
-  <button id="mute-button" onclick="unmute()">🔇 Activer le son</button>
+  <button id="mute-button" onclick="toggleMute()">🔇 Activer le son</button>
 
   <script>
     const video = document.getElementById("bad-apple-video");
@@ -83,16 +82,16 @@
       }
     }
 
-    function unmute() {
-      video.muted = false;
+    function toggleMute() {
+      video.muted = !video.muted;
       updateMuteButton();
     }
 
     function updateMuteButton() {
       if (video.muted) {
-        muteButton.style.display = "block"; 
+        muteButton.textContent = "🔇 Activer le son";
       } else {
-        muteButton.style.display = "none"; 
+        muteButton.textContent = "🔊 Couper le son";
       }
     }
 
@@ -104,9 +103,9 @@
       playPauseButton.textContent = "Play";
     });
 
-
-    video.addEventListener("loadedmetadata", updateMuteButton);
     video.addEventListener("volumechange", updateMuteButton);
+
+    updateMuteButton();
   </script>
 </body>
 </html>
